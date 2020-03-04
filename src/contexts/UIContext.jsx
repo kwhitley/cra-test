@@ -1,11 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react'
+import { h, createContext } from 'preact'
+import { useContext, useState, useEffect } from 'preact/hooks'
 import {
   useLocation,
   useParams, 
 } from 'react-router-dom'
 import useStore from 'use-store'
 
-export const UIContext = React.createContext({})
+export const UIContext = createContext({})
 
 const useRoutes = () => {
   let location = useLocation()

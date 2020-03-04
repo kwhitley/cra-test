@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef, Suspense } from 'react'
+import { h, Fragment } from 'preact'
+import { Suspense } from 'preact/compat'
+import { useState, useEffect, useRef } from 'preact/hooks'
 import { 
   BrowserRouter as Router, 
   Link, 
@@ -26,7 +28,7 @@ const Welcome = styled.div`
   font-weight: lighter;
 `
 
-const Loading = () => <>Loading...</>
+const Loading = () => <Fragment>Loading...</Fragment>
 
 const StyledPage = styled.div`
   position: absolute;
@@ -224,7 +226,7 @@ const Editable = ({
   }, [local, value])
   
   return (
-    <>
+    <Fragment>
       <ContentEditable
         html={local} // innerHTML of the editable div
         disabled={!editmode} // use true to disable edition
@@ -234,7 +236,7 @@ const Editable = ({
       value:{ value }<br />
       local:{ local }<br />
       dirty: { dirty ? 'yes' : 'no' }
-    </>
+    </Fragment>
   )
 }
 
@@ -251,24 +253,7 @@ export const PageItem = ({ id, ...props }) => {
     <StyledPageItem {...props}>
       <h2>item { id }</h2>
 
-      {/* <EditToggle />
-
-      <Editable as="h2" value="bar" onBlur={console.log}/> */}
-
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nunc libero, venenatis id diam imperdiet, sollicitudin porttitor neque. Quisque a sapien sit amet felis laoreet molestie nec vel est. Integer porttitor elit odio, in facilisis libero dictum eu. Cras at eros nec velit maximus ornare. Phasellus sit amet pellentesque ligula, vel rutrum nunc. Donec vestibulum in eros ac ultrices. Nulla blandit mauris ligula, et porttitor tellus mollis sit amet. Mauris tincidunt sollicitudin iaculis. Aenean blandit justo sit amet tellus imperdiet, accumsan porta erat aliquam. In enim felis, feugiat in consequat at, dictum ut lectus. Integer tincidunt blandit elementum. Maecenas blandit congue sem varius volutpat. Duis a auctor orci. Nunc blandit condimentum elit. Aliquam molestie, nibh molestie consectetur commodo, orci eros vehicula urna, vel dignissim ante tellus eu ante. Nam in lacus nibh.</p>
-      <p>Donec risus risus, feugiat at ultricies vitae, mollis et ex. Nam bibendum eros vitae eros imperdiet hendrerit. Suspendisse varius dui eu tempor vestibulum. Phasellus vehicula massa eget rutrum semper. Fusce augue ante, porttitor in porttitor sit amet, egestas quis mauris. Aenean vestibulum urna odio, vitae porta urna ultrices nec. Duis eu ullamcorper mi, eget accumsan orci. Ut tempor, quam malesuada lobortis accumsan, lacus nisi pulvinar tellus, nec volutpat diam diam in nunc. Quisque scelerisque aliquet velit, pharetra posuere massa tincidunt in. Cras non est bibendum, congue felis rutrum, lobortis turpis. Etiam feugiat accumsan pharetra. Vestibulum quis condimentum elit. Nulla vitae posuere lorem. Nulla sit amet metus tortor. Praesent molestie augue at sem feugiat dapibus. Nunc efficitur risus venenatis porttitor mollis.</p>
-      <p>Phasellus volutpat, urna at mattis suscipit, urna mi dignissim neque, sit amet luctus lacus augue ac tortor. Donec ac nibh leo. Nunc convallis diam vulputate tincidunt finibus. Praesent pulvinar luctus nibh vel commodo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec dolor ante, ultricies non risus dictum, pulvinar eleifend diam. Duis at sem ut tortor rhoncus egestas quis a mi. Mauris ut neque iaculis, finibus arcu id, accumsan libero. Suspendisse faucibus leo eget tellus ullamcorper auctor. In a pretium diam, gravida malesuada leo. Pellentesque eget tincidunt metus, eleifend aliquet tortor. Duis vestibulum risus ut sem porta, sit amet elementum est vehicula. Nulla urna nisi, rutrum eu dui vitae, lacinia consequat urna. Phasellus quis risus tellus. Nunc lobortis suscipit ipsum vitae viverra.</p>
-      <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi blandit purus mi, vel blandit metus condimentum vel. Donec a egestas dolor, ut facilisis dui. Quisque ante turpis, ullamcorper sed molestie vitae, pretium vitae metus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla dapibus hendrerit ex ut maximus. Morbi euismod nunc et erat faucibus, sit amet lobortis mauris consequat. Aliquam aliquet velit id orci dictum, quis varius velit tristique. Donec vitae cursus erat. Nunc ante quam, vestibulum sit amet nisi a, accumsan varius erat. Fusce faucibus dolor mi, quis semper massa facilisis a. Maecenas in aliquam quam, eget tincidunt augue. Nullam ac tellus est.</p>
-      <p>Ut semper vitae augue sed euismod. Ut auctor venenatis dolor, ut efficitur tellus. Duis purus leo, accumsan a consectetur id, semper vel lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce quis varius lorem, eget posuere ligula. Nam ac lorem vehicula, dapibus purus et, pellentesque nibh. Nam laoreet rhoncus ante vel interdum. Mauris vitae dolor nisl. Etiam pharetra iaculis lorem non blandit. Nulla eget iaculis dolor, a blandit tellus. Vestibulum tincidunt enim quam, iaculis consectetur nisl posuere vel. Ut efficitur massa sit amet dui pharetra dapibus. Donec at velit vel risus lacinia pellentesque. Etiam vulputate placerat arcu in viverra. Phasellus pharetra justo massa, quis rhoncus enim luctus in. Nullam accumsan justo a diam consectetur faucibus.</p>
-
-      <Button secondary="true" onClick={() => setShowDetails(true)}>Show Details</Button>
-      {
-        showDetails
-        ? <Suspense fallback={<Loading />}>
-            <AsyncDetails item={id} />
-          </Suspense>
-        : null
-      }
+      
     </StyledPageItem>
   )
 }
