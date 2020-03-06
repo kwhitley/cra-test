@@ -15,16 +15,77 @@ import { lazy } from './utils/lazy'
 import useStore from 'use-store'
 import ContentEditable from 'react-contenteditable'
 import { UIProvider, useUIContext } from './contexts/UIContext'
+import logo from './images/whitley-wild.svg'
 
 const AsyncDetails = lazy(() => import('./async/AsyncDetails'))
 
 const PAGE_TRANSITIONS = 400
 const PADDING = '3em'
+const MOBILE_PADDING = '0.3em'
+const MOBILE_MAXWIDTH = '30em'
+const MOBILE_CONTENT_PADDING = '1.5em'
 
 const Welcome = styled.div`
   font-size: 2em;
   font-weight: lighter;
 `
+
+const StyledLogo = styled.img`
+  filter: invert(37%) sepia(93%) saturate(7471%) hue-rotate(356deg) brightness(85%) contrast(135%);
+  z-index: -1;
+  transform: rotate(-5deg);
+  position: absolute;
+  right: 0;
+  top: -1.5em;
+  opacity: 0.3;
+`
+
+const GridGridLogo = styled.div`
+  grid-column: 1 / span 3;
+  // grid-row: 1 / span 2;
+  position: relative;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-end;
+  padding: 0 1em 1em 0;
+
+  h1 {
+    
+    font-weight: lighter;
+    font-family: sans-serif;
+    letter-spacing: -0.03em;
+    text-align: right;
+    font-size: 1.4em;
+
+    span {
+      display: block;
+      text-transform: uppercase;
+      white-space: nowrap;
+      font-size: 1.4em;
+    }
+  }
+
+  @media (max-width: ${MOBILE_MAXWIDTH}) {
+    padding: ${MOBILE_CONTENT_PADDING};
+
+    h1 {
+      position: relative;
+    }
+
+    img {
+      display: none;
+    }
+  }
+`
+
+const GridLogo = () => {
+  return (
+    <GridGridLogo>
+      <StyledLogo src={logo} height="120%" />
+      <h1>the original works of <span>K. R. Whitley</span></h1>
+    </GridGridLogo>
+  )
+}
 
 const Loading = () => <>Loading...</>
 
@@ -40,6 +101,10 @@ const StyledPage = styled.div`
   // opacity: ${({ visible }) => visible ? 1 : 0};
   transition: all ${PAGE_TRANSITIONS / 1000}s ease;
   transform: translate3D(${({ visible }) => visible ? 0 : '-100%'},0,0);
+
+  @media (max-width: ${MOBILE_MAXWIDTH}) {
+    padding: ${MOBILE_PADDING};
+  }
 `
 
 const StyledGrid = styled.div`
@@ -57,6 +122,7 @@ const StyledGridItem = styled.div`
   color: black;
   text-decoration: none;
   font-size: 3em;
+  opacity: 0.9;
 
   &:hover {
     background-color: #ddd;
@@ -91,6 +157,7 @@ export const Index = ({ collection, id }) => {
   return (
     <StyledPage visible={!id}>
       <StyledGrid>
+        <GridLogo />
         {
           items.map((item, i) =>
             <GridItem key={i} collection={collection} id={item} />
@@ -201,6 +268,11 @@ const StyledPageItem = styled.div`
   right: 0;
   padding-bottom: ${PADDING};
   transform: translate3D(${({ next, prev }) => next ? ('calc(100% + ' + PADDING + ')') : (prev ? ('calc(-100% - ' + PADDING + ')') : 0)},0,0);
+
+  @media (max-width: ${MOBILE_MAXWIDTH}) {
+    padding-left: ${MOBILE_CONTENT_PADDING};
+    padding-right: ${MOBILE_CONTENT_PADDING};
+  }
 `
 
 const Editable = ({ 
